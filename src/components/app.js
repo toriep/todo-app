@@ -30,6 +30,19 @@ class App extends Component{//the owner of the data is the only one that changes
         })
     }
 
+    deleteItem = index => {//we need to be in the habit of not mutating the state. Why???
+        const {list} = this.state;
+
+        const listCopy = list.slice();//this makes a copy of the array
+
+        listCopy.splice(index,1);
+
+        this.setState({
+            list : listCopy
+        });
+
+    }
+
     render(){
         const {list} = this.state;
 
@@ -37,7 +50,7 @@ class App extends Component{//the owner of the data is the only one that changes
             <div className="container">
                 <h1 className="center">To Do App</h1>
                 <AddItems add={this.addItems}/>
-                <List data={list}/>
+                <List data={list} delete={this.deleteItem}/>
             </div>
         );
     }
