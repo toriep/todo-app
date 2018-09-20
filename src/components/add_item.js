@@ -9,6 +9,10 @@ class AddItems extends React.Component{
     handleAddItem = (event)=>{//fat arrow automatically binds "this" for you
         event.preventDefault();//what is this for again
         this.props.add(this.state)
+        this.setState({//this clears the form
+            title: '',
+            details: ''
+        })
     }
 
     render(){
