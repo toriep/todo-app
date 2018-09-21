@@ -19,32 +19,25 @@ class App extends Component{//the owner of the data is the only one that changes
         this.getListData();
     }
 
-    async getListData(){
-        // Call server to get data
-        // http://api.reactprototypes.com/?key=whateverkeyiputhere;
-
-        // try {
+    async getListData() {
+        try {
             const resp = await axios.get(`${BASE_URL}/todos${API_KEY}`);
 
-            // if(!resp.data.succes){
-            //     throw new Error('Something went wrong!');
-            // }
+            if (!resp.data.success) {
+                throw new Error('Something went wrong');
+            }
 
             this.setState({
                 list: resp.data.todos
-            });
-        // } catch(err){
-        //     console.log('Get data error: ',err.message);
+            })
+        } catch (err) {
+            console.log('Error message:', err.message)
+            this.setState({
+                error: 'Error retrieving list data'
+            })
+        }
 
-        //     this.setState({
-        //         error: 'Error retrieving list data'
-        //     })
-        // }
-
-        // }
-
- 
-        // const resp = axios.get(`${BASE_URL}/todos/${API_KEY}`).then((resp)=>{
+             // const resp = axios.get(`${BASE_URL}/todos/${API_KEY}`).then((resp)=>{
         //     //wait for response, when response comes, use it the set state
         //     this.setState({//every time you call set state, render gets called again. Every time state changes or something get passed in, render method gets called
         //         list: resp.data.todos
@@ -57,6 +50,7 @@ class App extends Component{//the owner of the data is the only one that changes
         // });
 
         // console.log('Axios Return Value:', resp);
+
     }
 
     addItems = async (item)=>{//tell JS that there will be asyn functionality in this fn. This would automatically reutnr a promise
